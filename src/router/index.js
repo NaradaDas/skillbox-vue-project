@@ -1,25 +1,43 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'main',
+    component: () => import('@/pages/CatalogPage.vue'),
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+    path: '/product/:id',
+    name: 'product',
+    component: () => import('@/pages/ProductPage.vue'),
+  },
+  {
+    path: '/basket',
+    name: 'basket',
+    component: () => import('@/pages/BasketPage.vue'),
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: () => import('@/pages/OrderPage.vue'),
+  },
+  {
+    path: '/order/info/:id',
+    name: 'orderInfo',
+    component: () => import('@/pages/OrderInfoPage.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/pages/NotFoundPage.vue'),
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory('/vue-moire/'),
+  // history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 
 export default router;
+// git@github.com:NaradaDas/vue-moire.git

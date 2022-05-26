@@ -1,10 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <BaseHeader />
+  <router-view :key="$route.fullPath" />
+  <BaseFooter />
+  <div id="teleport-target"></div>
 </template>
+
+<script>
+import BaseHeader from '@/components/BaseHeader.vue';
+import BaseFooter from '@/components/BaseFooter.vue';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  components: { BaseHeader, BaseFooter },
+  setup() {
+    localStorage.setItem('categoryId', 0);
+  },
+});
+</script>
 
 <style lang="stylus">
 #app
