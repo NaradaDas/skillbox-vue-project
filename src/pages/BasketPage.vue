@@ -34,8 +34,7 @@
           </p>
           <div v-if="basketData.length">
             <BaseButtonError v-if="isInvalidProductQuantity">
-              Колличество товара в корзине должно быть не менше 1. Установите положительное значение
-              или удалите товар.
+              Колличество товара в корзине должно быть не менше 1.
             </BaseButtonError>
             <router-link
               :to="{ name: 'order' }"
@@ -52,9 +51,8 @@
   </main>
 </template>
 <script>
-import {
-  defineComponent, computed, ref, toRef,
-} from 'vue';
+// eslint-disable-next-line
+import { defineComponent, computed, ref, toRef } from 'vue';
 import BasketList from '@/components/BasketList.vue';
 import BaseButtonError from '@/components/BaseButtonError.vue';
 import useHelpers from '@/composible/useHelpers';
@@ -70,7 +68,9 @@ export default defineComponent({
     const isInvalidProductQuantity = ref(false);
     const totalPrice = computed(() => {
       // eslint-disable-next-line
-      isInvalidProductQuantity.value = store.state.basketData.every((item) => item.quantity > 0) ? false : true;
+      isInvalidProductQuantity.value = store.state.basketData.every((item) => item.quantity > 0)
+        ? false
+        : true;
       return editNumberFormat(
         store.state.basketData.reduce(
           (acc, item) => (item.quantity > 0 ? item.quantity * item.price + acc : acc),

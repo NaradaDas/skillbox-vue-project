@@ -39,6 +39,8 @@ export default defineComponent({
         selectElement.value.forEach((item) => {
           // eslint-disable-next-line
           item.checked = true;
+          // eslint-disable-next-line
+          item.disabled = true;
           emit('update:modelValue', Number(item.value));
         });
       }
@@ -57,5 +59,9 @@ export default defineComponent({
   font-size: 11px;
   line-height: 14px;
   color: #e02d71;
+}
+
+.options__radio:checked ~ .options__value::before {
+  background-color: black;
 }
 </style>

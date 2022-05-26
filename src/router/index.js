@@ -40,4 +40,3 @@ const router = createRouter({
 });
 
 export default router;
-// git@github.com:NaradaDas/vue-moire.git
