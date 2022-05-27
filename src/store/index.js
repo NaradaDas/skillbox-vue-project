@@ -12,6 +12,9 @@ export default createStore({
   getters: {
   },
   mutations: {
+    deleteItemInBasket(state, id) {
+      state.basketData = state.basketData.filter((item) => item.id !== id);
+    },
     changeBasketItemsQuantity(state, quantity) {
       state.basketItemsQuantity = quantity;
     },

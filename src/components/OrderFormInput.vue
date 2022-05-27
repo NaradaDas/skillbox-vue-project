@@ -1,6 +1,6 @@
 <template lang="">
   <OrderFormField :label-text="labelText" :error-text="errorValue">
-  <!-- eslint-disable-next-line -->
+    <!-- eslint-disable-next-line -->
     <input
       @input="updateErrorStatus"
       class="form__input"
@@ -20,7 +20,6 @@ export default defineComponent({
     const errorValue = ref();
 
     const updateErrorStatus = (e) => {
-      console.log(!!e.target.value.trim());
       errorValue.value = !e.target.value.trim() ? props.errorText : null;
     };
 

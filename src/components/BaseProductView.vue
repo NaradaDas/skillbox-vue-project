@@ -21,7 +21,9 @@
       </ul>
     </div>
 
-    <BaseBigLoader class="container" :loading="isProductLoading" :failed="isProductLoadingFailed" />
+    <BaseBigLoader class="container" :loading="isProductLoading" :failed="isProductLoadingFailed">
+      Не удалось получить данные о товаре.
+    </BaseBigLoader>
 
     <section v-if="!isProductLoading && !isProductLoadingFailed" class="item">
       <div class="item__pics pics">
@@ -54,7 +56,7 @@
                 <legend class="form__legend">Цвет</legend>
                 <ul :id="`product-colors-${productId}`" class="colors colors--black">
                   <li v-for="(item, index) in productData.colors" :key="index" class="colors__item">
-                  <!-- eslint-disable-next-line -->
+                    <!-- eslint-disable-next-line -->
                     <label class="colors__label">
                       <input
                         :checked="image === findImage(item)"
@@ -80,7 +82,7 @@
               </fieldset>
               <fieldset class="form__block">
                 <legend class="form__legend">Размер</legend>
-                                  <!-- eslint-disable-next-line -->
+                <!-- eslint-disable-next-line -->
                 <label class="form__label form__label--small form__label--select">
                   <select class="form__select" name="category" v-model="productPostSettings.sizeId">
                     <option v-for="size in productData.sizes" :key="size.id" :value="size.id">
@@ -138,7 +140,8 @@ import BaseBigLoader from '@/components/BaseBigLoader.vue';
 import BaseSmallLoader from '@/components/BaseSmallLoader.vue';
 import BaseProductCounter from '@/components/BaseProductCounter.vue';
 import BaseButtonError from '@/components/BaseButtonError.vue';
-import { defineComponent, ref } from 'vue';
+// eslint-disable-next-line
+import { defineComponent, ref, watch, onMounted, toRef, watchEffect, toRefs } from 'vue';
 import useProduct from '@/composible/useProduct';
 import { useRoute } from 'vue-router';
 
@@ -152,7 +155,7 @@ export default defineComponent({
   },
   props: ['productId'],
   setup(props) {
-  // eslint-disable-next-line
+    // eslint-disable-next-line
     const isQuickView = ref(useRoute().name == 'main' ? true : false);
 
     return {

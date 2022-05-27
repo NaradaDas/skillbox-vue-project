@@ -37,22 +37,15 @@
 
     <button
       v-if="basketItemsQuantity"
-      :class="{ 'button-del--loading': isDeleteLoading }"
       @click.prevent="deleteItem(item)"
       class="product__del button-del"
       type="button"
       aria-label="Удалить товар из корзины"
     >
-      <BaseSmallLoader
-        class="button-del__preloader"
-        :sending="isDeleteLoading"
-        :failed="isDeleteFailed"
-      >
-        <teleport to="#basket-teleport">
-          Не удалось удалить товар. Проверьте интернет соединение и попробуйте перезагрузите
-          страницу.
-        </teleport>
-      </BaseSmallLoader>
+      <teleport v-if="isDeleteFailed" to="#basket-teleport">
+        Не удалось удалить товар. Проверьте интернет соединение и попробуйте перезагрузите страницу.
+      </teleport>
+
       <svg width="20" height="20" fill="currentColor">
         <g id="color" />
         <g id="hair" />
@@ -93,13 +86,12 @@ import { defineComponent, ref, toRef } from 'vue';
 import BaseProductCounter from '@/components/BaseProductCounter.vue';
 import useApi from '@/composible/useApi';
 import useHelpers from '@/composible/useHelpers';
-import BaseSmallLoader from '@/components/BaseSmallLoader.vue';
 import BaseImageNotFound from '@/components/BaseImageNotFound.vue';
 
 import { useStore } from 'vuex';
 
 export default defineComponent({
-  components: { BaseProductCounter, BaseSmallLoader, BaseImageNotFound },
+  components: { BaseProductCounter, BaseImageNotFound },
   props: ['itemData'],
   setup(props) {
     const store = useStore();
@@ -112,6 +104,7 @@ export default defineComponent({
     };
 
     const deleteItem = (item) => {
+      store.commit('deleteItemInBasket', item.id);
       store.commit('changeBasketItemDeleteLoadingIngicator', true);
       store.commit('changeBasketItemDeleteFailedIngicator', false);
       deleteBasketItem({ basketItemId: item.id })

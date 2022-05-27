@@ -68,9 +68,7 @@ export default defineComponent({
     const isInvalidProductQuantity = ref(false);
     const totalPrice = computed(() => {
       // eslint-disable-next-line
-      isInvalidProductQuantity.value = store.state.basketData.every((item) => item.quantity > 0)
-        ? false
-        : true;
+      isInvalidProductQuantity.value = !store.state.basketData.every((item) => item.quantity > 0);
       return editNumberFormat(
         store.state.basketData.reduce(
           (acc, item) => (item.quantity > 0 ? item.quantity * item.price + acc : acc),
