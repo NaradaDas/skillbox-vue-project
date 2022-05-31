@@ -156,7 +156,7 @@ export default defineComponent({
   props: ['productId'],
   setup(props) {
     // eslint-disable-next-line
-    const isQuickView = ref(useRoute().name == 'main' ? true : false);
+    const isQuickView = ref(useRoute().name === 'main');
 
     return {
       ...useProduct(props.productId),
